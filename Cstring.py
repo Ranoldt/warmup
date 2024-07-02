@@ -132,9 +132,9 @@ class Cstring:
 
         if type(char) == list:
             for i in char[::-1]:
-                self.lst.insert(index+1, i)
+                self.lst.insert(index, i)
         else:
-            self.lst.insert(index+1, char)
+            self.lst.insert(index, char)
 
         if '\0' not in self.lst:
             self.lst.append('\0')
@@ -147,9 +147,8 @@ class Cstring:
             index (int): The index of the character to replace.
             char (str): The new character to be placed at the specified index.
         """
-        self.lst[index+1] = char
-        if '\0' not in self.lst:
-            self.lst.append('\0')
+        self.lst[index] = char
+        self.lst.remove('\0')
 
     def strstr(self, start_index: int, end_index: int) -> 'Cstring':
         """
