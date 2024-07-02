@@ -35,9 +35,12 @@ class Cstring:
                                        Defaults to None, which initializes an empty string.
         """
         if lst is None:
-            self.lst = []
+            self.lst = ['\0']
         else:
-            self.lst = lst
+            if '\0' not in lst:
+                self.lst.append('\0')
+            else:
+                self.lst = lst
 
     def at(self, index: int) -> str:
         """
@@ -125,14 +128,17 @@ class Cstring:
         Raises:
             IndexError: If the index is out of the valid range for insertion.
         """
-        if index >= len(self.lst) or index < 0:
+        if index > len(self.lst) or index < 0:
             raise IndexError
 
-        if type(char) == str:
-            self.lst.insert(index, char)
-        else:
+        if '\0' in char:
+            self.lst.remove('\0')
+
+        if type(char) == list:
             for i in char[::-1]:
                 self.lst.insert(index, i)
+        else:
+            self.lst.insert(index, char)
 
     def replace(self, index: int, char: str) -> None:
         """
@@ -142,12 +148,9 @@ class Cstring:
             index (int): The index of the character to replace.
             char (str): The new character to be placed at the specified index.
         """
-        if self.lst[index] == '\0':
-            self.lst[index] = char
-            self.lst.insert(index + 1,'\0')
-        else:
-            self.lst[index] = char
-
+        if char == '\0':
+            self.lst.remove('\0')
+        self.lst[index] = char
     def strstr(self, start_index: int, end_index: int) -> 'Cstring':
         """
         Extracts a substring from the Cstring and returns it as a new Cstring.
