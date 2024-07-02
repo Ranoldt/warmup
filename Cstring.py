@@ -114,7 +114,7 @@ class Cstring:
         Returns:
             int: The length of the string.
         """
-        return len(self.lst)
+        return len(self.string())
 
     def insert(self, index: int, char) -> None:
         """
@@ -130,14 +130,11 @@ class Cstring:
         if index > len(self.lst) or index < 0:
             raise IndexError
 
-        self.lst.remove('\0')
-
         if type(char) == list:
             for i in char[::-1]:
                 self.lst.insert(index, i)
         else:
             self.lst.insert(index, char)
-        self.lst.append('\0')
 
     def replace(self, index: int, char: str) -> None:
         """
@@ -147,9 +144,7 @@ class Cstring:
             index (int): The index of the character to replace.
             char (str): The new character to be placed at the specified index.
         """
-        self.lst.remove('\0')
         self.lst[index] = char
-        self.lst.append('\0')
 
     def strstr(self, start_index: int, end_index: int) -> 'Cstring':
         """
@@ -190,5 +185,9 @@ class Cstring:
         return -1
 
 if __name__ == '__main__':
-    c = Cstring(['a','b'])
-    print('string:', c.cString)
+    c = Cstring(['a', '1', 'c'])
+    print('string:', c.lst)
+    c.insert(2, 'b')
+    print('string:', c.lst)
+    print(len(c.lst))
+    print(len(c.string()))
