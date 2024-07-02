@@ -16,7 +16,7 @@ class CSentence:
             cstrings (list[Cstring], optional): A list of Cstring objects that make up the sentence.
                                                 Defaults to None, which will initialize an empty sentence.
         """
-        pass
+        self.lst = cstrings if cstrings is not None else []
 
     def get_sentence(self) -> str:
         """
@@ -26,4 +26,5 @@ class CSentence:
             str: The full sentence constructed from the Cstring objects,
                  where each word is separated by a space.
         """
-        pass
+        new_lst = [Cstring.string(word) for word in self.lst]
+        return ' '.join(new_lst)
