@@ -127,8 +127,12 @@ class Cstring:
         """
         if index >= len(self.lst) or index < 0:
             raise IndexError
+
+        if type(char) == str:
+            self.lst.insert(index, char)
         else:
-            self.lst.insert(index, ''.join(char) if type(char) == list else char)
+            for i in char[::-1]:
+                self.lst.insert(index, i)
 
     def replace(self, index: int, char: str) -> None:
         """
@@ -138,7 +142,11 @@ class Cstring:
             index (int): The index of the character to replace.
             char (str): The new character to be placed at the specified index.
         """
-        self.lst[index] = char
+        if self.lst[index] == '\0':
+            self.lst[index] = char
+            self.lst.insert(index + 1,'\0')
+        else:
+            self.lst[index] = char
 
     def strstr(self, start_index: int, end_index: int) -> 'Cstring':
         """
