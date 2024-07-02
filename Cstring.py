@@ -34,10 +34,10 @@ class Cstring:
             lst (list[str], optional): A list of characters to initialize the string.
                                        Defaults to None, which initializes an empty string.
         """
-        self.cString = ''
-        if lst is not None:
-            for char in lst:
-                self.cString += str(char)
+        if lst is None:
+            self.cString = []
+        else:
+            self.cString = lst
 
     def at(self, index: int) -> str:
         """
@@ -52,7 +52,7 @@ class Cstring:
         Raises:
             IndexError: If the index is out of the valid range
         """
-        if index > len(self.cString) - 2 or index < 0:
+        if index > len(self.cString) or index < 0:
             raise IndexError
         else:
             return self.cString[index]
@@ -64,7 +64,13 @@ class Cstring:
         Returns:
             str: The string representation.
         """
-        return self.cString
+        str = ''
+        for char in self.cString:
+            if char == '\0':
+                break
+            else:
+                str += char
+        return str
 
     def newString(self) -> 'Cstring':
         """
@@ -73,8 +79,7 @@ class Cstring:
         Returns:
             Cstring: A new instance of Cstring with the same content.
         """
-        Cstring = self.cString[:]
-        return Cstring
+        return Cstring(self.cString)
 
     def append(self, char: str) -> None:
         """
@@ -83,8 +88,7 @@ class Cstring:
         Args:
             char (str): The character to append.
         """
-        new_str = self.cString[:-2] + char
-        self.cString = new_str + '\0'
+        self.cString.append(char)
 
     def pop(self) -> str:
         """
@@ -93,13 +97,13 @@ class Cstring:
         Returns:
             str: The character that was removed from the beginning.
         """
-        pass
+        return self.cString.pop(0)
 
     def empty(self) -> None:
         """
         Empties the Cstring
         """
-        pass
+        self.cString = []
 
     def length(self) -> int:
         """
@@ -108,7 +112,7 @@ class Cstring:
         Returns:
             int: The length of the string.
         """
-        pass
+        return len(self.cString)
 
     def insert(self, index: int, char) -> None:
         """
@@ -121,7 +125,10 @@ class Cstring:
         Raises:
             IndexError: If the index is out of the valid range for insertion.
         """
-        pass
+        if index > len(self.cString) or index < 0:
+            raise IndexError
+        else:
+            self.cString.insert(index, ''.join(char) if type(char) == list else char)
 
     def replace(self, index: int, char: str) -> None:
         """
@@ -131,7 +138,7 @@ class Cstring:
             index (int): The index of the character to replace.
             char (str): The new character to be placed at the specified index.
         """
-        pass
+        self.cString[index] = char
 
     def strstr(self, start_index: int, end_index: int) -> 'Cstring':
         """
@@ -147,7 +154,10 @@ class Cstring:
         Raises:
             IndexError: If either index is out of range.
         """
-        pass
+        if (start_index > len(self.cString) or start_index < 0) or (end_index > len(self.cString) or end_index < 0):
+            raise IndexError
+        else:
+            return Cstring(self.cString[start_index:end_index])
 
     def strrchr(self, char: str) -> int:
         """
@@ -159,4 +169,11 @@ class Cstring:
         Returns:
             int: The last index of the character, or -1 if not found.
         """
-        pass
+        index = None
+        for element in self.cString:
+            if char == element:
+                index = self.cString.index(element)
+
+        if index:
+            return index
+        return -1
