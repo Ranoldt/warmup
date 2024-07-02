@@ -1,5 +1,6 @@
 from Cstring import Cstring
 
+
 class CSentence:
     """
     A class to represent a sentence composed of multiple Cstring objects,
@@ -8,6 +9,7 @@ class CSentence:
     Attributes:
         string (list[Cstring]): A list of Cstring objects representing words in a sentence.
     """
+
     def __init__(self, cstrings: list[Cstring] = None):
         """
         Initializes the CSentence with an optional list of Cstring objects.

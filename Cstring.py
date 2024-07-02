@@ -124,7 +124,7 @@ class Cstring:
         Raises:
             IndexError: If the index is out of the valid range for insertion.
         """
-        if index > len(self.lst) or index < 0:
+        if index >= len(self.lst) or index < 0:
             raise IndexError
 
         if type(char) == list:
@@ -142,6 +142,8 @@ class Cstring:
             char (str): The new character to be placed at the specified index.
         """
         self.lst[index] = char
+        if '\0' not in self.lst:
+            self.lst.append('\0')
 
     def strstr(self, start_index: int, end_index: int) -> 'Cstring':
         """
@@ -181,10 +183,16 @@ class Cstring:
             return index
         return -1
 
+
 if __name__ == '__main__':
-    c = Cstring(['a', '1', 'c'])
+    c = Cstring()
     print('string:', c.lst)
-    c.insert(2, 'b')
+    print('length:', c.length())
+    print('string:', c.string())
+    c.replace(0,'e')
+    print(c.lst)
+    c.append('k')
+    c.insert(0, ['a','b','c'])
     print('string:', c.lst)
-    print(len(c.lst))
-    print(len(c.string()))
+    print(c.pop())
+    print(c.lst)
