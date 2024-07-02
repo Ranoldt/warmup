@@ -52,7 +52,7 @@ class Cstring:
         Raises:
             IndexError: If the index is out of the valid range
         """
-        if index > len(self.lst) or index < 0:
+        if index >= len(self.lst) or index < 0:
             raise IndexError
         else:
             return self.lst[index]
@@ -79,7 +79,7 @@ class Cstring:
         Returns:
             Cstring: A new instance of Cstring with the same content.
         """
-        return Cstring(self.lst)
+        return Cstring(self.lst[:])
 
     def append(self, char: str) -> None:
         """
@@ -103,7 +103,7 @@ class Cstring:
         """
         Empties the Cstring
         """
-        self.lst = []
+        self.lst = ['\0']
 
     def length(self) -> int:
         """
@@ -125,7 +125,7 @@ class Cstring:
         Raises:
             IndexError: If the index is out of the valid range for insertion.
         """
-        if index > len(self.lst) or index < 0:
+        if index >= len(self.lst) or index < 0:
             raise IndexError
         else:
             self.lst.insert(index, ''.join(char) if type(char) == list else char)
