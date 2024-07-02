@@ -35,9 +35,9 @@ class Cstring:
                                        Defaults to None, which initializes an empty string.
         """
         if lst is None:
-            self.cString = []
+            self.lst = []
         else:
-            self.cString = lst
+            self.lst = lst
 
     def at(self, index: int) -> str:
         """
@@ -52,10 +52,10 @@ class Cstring:
         Raises:
             IndexError: If the index is out of the valid range
         """
-        if index > len(self.cString) or index < 0:
+        if index > len(self.lst) or index < 0:
             raise IndexError
         else:
-            return self.cString[index]
+            return self.lst[index]
 
     def string(self) -> str:
         """
@@ -64,13 +64,13 @@ class Cstring:
         Returns:
             str: The string representation.
         """
-        str = ''
-        for char in self.cString:
+        string = ''
+        for char in self.lst:
             if char == '\0':
                 break
             else:
-                str += char
-        return str
+                string += char
+        return string
 
     def newString(self) -> 'Cstring':
         """
@@ -79,7 +79,7 @@ class Cstring:
         Returns:
             Cstring: A new instance of Cstring with the same content.
         """
-        return Cstring(self.cString)
+        return Cstring(self.lst)
 
     def append(self, char: str) -> None:
         """
@@ -88,7 +88,7 @@ class Cstring:
         Args:
             char (str): The character to append.
         """
-        self.cString.append(char)
+        self.lst.append(char)
 
     def pop(self) -> str:
         """
@@ -97,13 +97,13 @@ class Cstring:
         Returns:
             str: The character that was removed from the beginning.
         """
-        return self.cString.pop(0)
+        return self.lst.pop(0)
 
     def empty(self) -> None:
         """
         Empties the Cstring
         """
-        self.cString = []
+        self.lst = []
 
     def length(self) -> int:
         """
@@ -112,7 +112,7 @@ class Cstring:
         Returns:
             int: The length of the string.
         """
-        return len(self.cString)
+        return len(self.lst)
 
     def insert(self, index: int, char) -> None:
         """
@@ -125,10 +125,10 @@ class Cstring:
         Raises:
             IndexError: If the index is out of the valid range for insertion.
         """
-        if index > len(self.cString) or index < 0:
+        if index > len(self.lst) or index < 0:
             raise IndexError
         else:
-            self.cString.insert(index, ''.join(char) if type(char) == list else char)
+            self.lst.insert(index, ''.join(char) if type(char) == list else char)
 
     def replace(self, index: int, char: str) -> None:
         """
@@ -138,7 +138,7 @@ class Cstring:
             index (int): The index of the character to replace.
             char (str): The new character to be placed at the specified index.
         """
-        self.cString[index] = char
+        self.lst[index] = char
 
     def strstr(self, start_index: int, end_index: int) -> 'Cstring':
         """
@@ -154,10 +154,10 @@ class Cstring:
         Raises:
             IndexError: If either index is out of range.
         """
-        if (start_index > len(self.cString) or start_index < 0) or (end_index > len(self.cString) or end_index < 0):
+        if (start_index > len(self.lst) or start_index < 0) or (end_index > len(self.lst) or end_index < 0):
             raise IndexError
         else:
-            return Cstring(self.cString[start_index:end_index])
+            return Cstring(self.lst[start_index:end_index])
 
     def strrchr(self, char: str) -> int:
         """
@@ -170,10 +170,14 @@ class Cstring:
             int: The last index of the character, or -1 if not found.
         """
         index = None
-        for element in self.cString:
+        for element in self.lst:
             if char == element:
-                index = self.cString.index(element)
+                index = self.lst.index(element)
 
         if index:
             return index
         return -1
+
+if __name__ == '__main__':
+    c = Cstring(['a','b'])
+    print('string:', c.cString)
