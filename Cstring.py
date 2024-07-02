@@ -136,6 +136,9 @@ class Cstring:
         else:
             self.lst.insert(index, char)
 
+        if '\0' not in self.lst:
+            self.lst.append('\0')
+
     def replace(self, index: int, char: str) -> None:
         """
         Replaces the character at a specified index.
@@ -145,6 +148,8 @@ class Cstring:
             char (str): The new character to be placed at the specified index.
         """
         self.lst[index] = char
+        if '\0' not in self.lst:
+            self.lst.append('\0')
 
     def strstr(self, start_index: int, end_index: int) -> 'Cstring':
         """
