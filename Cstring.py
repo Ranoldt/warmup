@@ -51,7 +51,7 @@ class Cstring:
         Raises:
             IndexError: If the index is out of the valid range
         """
-        if index >= len(self.lst) or index < 0:
+        if index >= len(self.lst)-1 or index < 0:
             raise IndexError
         else:
             return self.lst[index]
@@ -191,6 +191,7 @@ if __name__ == '__main__':
     print('string:', c.string())
     c.replace(0,'e')
     print(c.lst)
+    print('at:', c.at(0))
     c.append('k')
     c.insert(0, ['a','b','c'])
     print('string:', c.lst)
