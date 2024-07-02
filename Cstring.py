@@ -38,6 +38,8 @@ class Cstring:
             self.lst = ['\0']
         else:
             self.lst = lst
+            if '\0' not in lst:
+                self.lst.append('\0')
 
     def at(self, index: int) -> str:
         """
@@ -88,7 +90,7 @@ class Cstring:
         Args:
             char (str): The character to append.
         """
-        self.lst.append(char)
+        self.lst.insert(-1, char)
 
     def pop(self) -> str:
         """
