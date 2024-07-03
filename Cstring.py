@@ -140,10 +140,14 @@ class Cstring:
         Args:
             index (int): The index of the character to replace.
             char (str): The new character to be placed at the specified index.
+
+        Raises:
+            IndexError: If the index replaces the null character.
         """
-        self.lst[index] = char
-        if '\0' not in self.lst:
-            self.lst.append('\0')
+        if self.lst[index] == '\0':
+            raise IndexError
+        else:
+            self.lst[index] = char
 
     def strstr(self, start_index: int, end_index: int) -> 'Cstring':
         """
@@ -182,18 +186,3 @@ class Cstring:
         if index:
             return index
         return -1
-
-
-if __name__ == '__main__':
-    c = Cstring()
-    print('string:', c.lst)
-    print('length:', c.length())
-    print('string:', c.string())
-    c.replace(0,'e')
-    print(c.lst)
-    print('at:', c.at(0))
-    c.append('k')
-    c.insert(0, ['a','b','c'])
-    print('string:', c.lst)
-    print(c.pop())
-    print(c.lst)
