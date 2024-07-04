@@ -96,7 +96,8 @@ class Cstring:
         Returns:
             str: The character that was removed from the beginning.
         """
-        return self.lst.pop(0)
+        if self.lst[0] != '\0':
+            return self.lst.pop(0)
 
     def empty(self) -> None:
         """
